@@ -6,8 +6,10 @@
  */
 
 // === Config: change these ===
-window.VIDEO_URL = "trip-to-morocco.mp4";
+window.VIDEO_URL = "trip-to-morocco.mp4"; // streaming (31MB 720p, fast)
 window.VIDEO_TITLE = "Trip to Morocco.mp4";
+window.DOWNLOAD_URL = "https://github.com/shineministry/drive-video-viewer/releases/download/v1.0/Trip.to.Morocco.mp4"; // high-quality original 359MB for download
+window.DOWNLOAD_FILENAME = "Trip to Morocco - Original High Quality.mp4";
 
 const $ = (s, r=document) => r.querySelector(s);
 const video = $('#video');
@@ -257,24 +259,27 @@ document.addEventListener('keydown', (e)=>{
 wrap.addEventListener('mousemove', resetHideTimer);
 wrap.addEventListener('mouseleave', ()=> wrap.classList.remove('controls-visible'));
 
-// Download
+// Download — always high quality if DOWNLOAD_URL set
 function doDownload(){
-  const src = video.currentSrc || video.src;
+  const highQuality = window.DOWNLOAD_URL || "";
+  const fallbackSrc = video.currentSrc || video.src;
+  const src = highQuality || fallbackSrc;
   if(!src){ toast('No video to download'); return; }
-  // Create anchor to force download
+  const filename = window.DOWNLOAD_FILENAME || detailName.textContent || 'video.mp4';
+  // If highQuality is cross-origin (Releases), use direct link with download attr + fallback
   const a = document.createElement('a');
   a.href = src;
-  a.download = detailName.textContent || 'video.mp4';
+  a.download = filename;
   a.target = '_blank';
   a.rel = 'noopener';
   document.body.appendChild(a);
   a.click();
   a.remove();
-  toast('Downloading…');
-  // Fallback: open in new tab if download attribute blocked (cross-origin)
-  setTimeout(()=>{
-    if(!a.download) window.open(src, '_blank');
-  }, 300);
+  toast(highQuality ? 'Downloading high quality…' : 'Downloading…');
+  // For cross-origin Releases, some browsers ignore download attr — open in new tab as fallback
+  if(highQuality){
+    setTimeout(()=> window.open(src, '_blank'), 400);
+  }
 }
 
 $('#downloadBtn').addEventListener('click', doDownload);
