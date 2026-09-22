@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Video Viewer — Drive</title>
+  <meta name="description" content="Video viewer with Google Drive design — opens instantly, no sign-in required." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path fill='%234285F4' d='M8 14l8-8h16l8 8v20l-8 8H16l-8-8z'/><path fill='white' d='M18 16l6 10 6-10z' opacity='.9'/></svg>">
+</head>
+<body>
+  <!-- Top App Bar — exact Drive file viewer header -->
+  <header class="drive-header" role="banner">
+    <div class="header-left">
+      <button class="icon-btn menu-btn" aria-label="Menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
+      <a class="brand" href="./" aria-label="Drive">
+        <!-- G Drive triangle logo -->
+        <svg viewBox="0 0 87 24" width="87" height="24" aria-hidden="true">
+          <path fill="#4285F4" d="M12 4l-9 15h18L12 4z"/>
+          <path fill="#34A853" d="M3 19l9-15 9 15H3z" opacity="0.9"/>
+          <path fill="#FBBC05" d="M12 4l-5 8h10L12 4z"/>
+          <text x="26" y="17" font-family="Google Sans, Roboto, Arial, sans-serif" font-size="15" fill="#5f6368" font-weight="400">Drive</text>
+        </svg>
+      </a>
+      <div class="file-meta">
+        <h1 class="file-name" id="fileName" title="Video.mp4">Video.mp4</h1>
+        <div class="file-sub">Anyone with the link can view • No sign-in required</div>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <div class="search-pill" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#5f6368" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16 6.47 6.47 0 0 0 14 14.5l.27.28v.79l5 5 1.5-1.5-5-5zm-6 0C7 14 5 12 5 9.5S7 5 9.5 5 14 7 14 9.5 12 14 9.5 14z"/></svg>
+        <span>Search in Drive</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button class="icon-btn" id="infoBtn" aria-label="View details" title="View details">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 14.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4zm1.1-6.2l-.2.2c-.7.7-1 1.1-1 2v1.2h-2V12c0-.7.3-1.3.9-1.9l.6-.6c.4-.4.5-.8.5-1.1 0-.8-.7-1.4-1.5-1.4S9 7.6 9 8.4H7c0-1.9 1.5-3.4 3.5-3.4S14 6.5 14 8.4c0 .7-.3 1.3-.9 1.9z"/></svg>
+      </button>
+      <span class="divider" aria-hidden="true"></span>
+      <button class="action-btn secondary" id="shareBtn" title="Copy link">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11A2.99 2.99 0 0 0 18 7.91a3 3 0 1 0-3-3c0 .24.04.47.09.7L8.04 9.81A3 3 0 0 0 6 8.91a3 3 0 1 0 0 6.18c.76 0 1.44-.3 1.96-.77l7.13 4.15c-.05.21-.09.43-.09.66a3 3 0 1 0 3-3zM6 14a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm12-6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
+        Share
+      </button>
+      <button class="action-btn primary" id="downloadBtn" title="Download (d)">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Download
+      </button>
+      <button class="icon-btn" id="moreBtn" aria-label="More actions" title="More actions">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 6a2 2 0 1 0 0 4 2 2 0 0 0 0 4z"/></svg>
+      </button>
+      <img class="avatar" src="https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png" alt="User" width="32" height="32" />
+    </div>
+  </header>
+
+  <!-- Stage — black canvas like Drive -->
+  <main class="stage" id="stage">
+    <!-- Loader — Drive spinner -->
+    <div class="loader-wrap" id="loader">
+      <div class="drive-spinner" aria-label="Loading">
+        <div class="spinner-ring"></div>
+      </div>
+      <p class="loader-text">Loading preview…</p>
+    </div>
+
+    <!-- Video container -->
+    <div class="video-wrap" id="videoWrap" aria-live="polite">
+      <video id="video" preload="metadata" playsinline controlsList="nodownload" poster="" tabindex="0"></video>
+
+      <!-- Custom controls overlay — Drive style -->
+      <div class="controls" id="controls">
+        <div class="progress-wrap" id="progressWrap" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+          <div class="progress-track">
+            <div class="progress-buffer" id="bufferBar"></div>
+            <div class="progress-fill" id="progressBar"></div>
+            <div class="progress-thumb" id="progressThumb"></div>
+          </div>
+        </div>
+        <div class="controls-row">
+          <div class="controls-left">
+            <button class="c-btn play-btn" id="playBtn" aria-label="Play">
+              <svg class="icon-play" viewBox="0 0 24 24" width="24" height="24"><path fill="white" d="M8 5v14l11-7z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" width="24" height="24" style="display:none"><path fill="white" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <button class="c-btn" id="muteBtn" aria-label="Mute">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path fill="white" d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM3 9v6h4l5 5V4L7 9H3z"/></svg>
+            </button>
+            <span class="time" id="timeLabel">0:00 / 0:00</span>
+          </div>
+          <div class="controls-right">
+            <button class="c-btn" id="pipBtn" title="Picture-in-picture" aria-label="Picture in picture">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path fill="white" d="M19 7H9v10h10V7zm-2 8H11V9h6v6zM5 5h10v2H7v8H5V5z"/></svg>
+            </button>
+            <button class="c-btn" id="settingsBtn" title="Speed" aria-label="Playback speed">1×</button>
+            <button class="c-btn" id="fsBtn" title="Full screen (f)" aria-label="Full screen">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path fill="white" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center big play -->
+      <button class="big-play" id="bigPlay" aria-label="Play video">
+        <svg viewBox="0 0 24 24" width="48" height="48"><path fill="white" d="M8 5v14l11-7z"/></svg>
+      </button>
+
+      <!-- Error / empty state -->
+      <div class="error-card" id="errorCard" hidden>
+        <div class="error-icon">⚠️</div>
+        <h2>No preview available</h2>
+        <p id="errorMsg">Add your video to <code>videos/</code> or set <code>?v=LINK</code>. See README.</p>
+        <label class="action-btn primary file-picker">
+          <input type="file" id="localFile" accept="video/*" hidden />
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M9 16h6v-6h4l-7-7-7 7h4zM5 18h14v2H5z"/></svg>
+          Choose video from device
+        </label>
+      </div>
+    </div>
+
+    <!-- Right info drawer — Drive details panel -->
+    <aside class="drawer" id="drawer" aria-hidden="true">
+      <div class="drawer-head">
+        <h2>Details</h2>
+        <button class="icon-btn" id="closeDrawer" aria-label="Close">✕</button>
+      </div>
+      <div class="drawer-body">
+        <div class="detail-row"><span>Type</span><strong>Video</strong></div>
+        <div class="detail-row"><span>Owner</span><strong>You</strong></div>
+        <div class="detail-row"><span>Access</span><strong>Anyone with the link — no sign-in</strong></div>
+        <div class="detail-row"><span>Location</span><strong id="detailName">Video.mp4</strong></div>
+        <div class="detail-row"><span>Size</span><strong id="detailSize">—</strong></div>
+        <div class="detail-row"><span>Duration</span><strong id="detailDuration">—</strong></div>
+        <hr />
+        <p class="hint">Tip: Share this page link. Viewers open directly — no Google account, no permission request.</p>
+        <button class="action-btn secondary full" id="copyLinkBtn">Copy link</button>
+        <button class="action-btn primary full" id="drawerDownloadBtn">Download video</button>
+      </div>
+    </aside>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <!-- More menu -->
+  <div class="menu" id="moreMenu" hidden role="menu">
+    <button role="menuitem" data-action="download">⬇ Download</button>
+    <button role="menuitem" data-action="copy">🔗 Copy link</button>
+    <button role="menuitem" data-action="print">🖨 Print</button>
+    <button role="menuitem" data-action="report">🚩 Report abuse</button>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
