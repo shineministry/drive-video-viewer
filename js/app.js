@@ -6,10 +6,8 @@
  */
 
 // === Config: change these ===
-window.VIDEO_URL = ""; // e.g. "videos/my-video.mp4" or "https://example.com/video.mp4"
-// If you host video on Google Drive as public, put direct link or Drive ID:
-// VIDEO_URL = "https://drive.google.com/file/d/FILE_ID/view"  -> will be converted
-window.VIDEO_TITLE = "Video.mp4";
+window.VIDEO_URL = "https://github.com/shineministry/drive-video-viewer/releases/download/v1.0/Trip.to.Morocco.mp4";
+window.VIDEO_TITLE = "Trip to Morocco.mp4";
 
 const $ = (s, r=document) => r.querySelector(s);
 const video = $('#video');
