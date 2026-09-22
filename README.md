@@ -62,12 +62,41 @@ git push origin main
 ```
 Your link becomes `https://<user>.github.io/<repo>/?v=videos/...`
 
+## 📦 300MB+ File? Fix (GitHub blocks >100MB)
+GitHub rejects files >100MB (`videos/*.mp4` is gitignored for this reason). Use one of these:
+
+**Option A — GitHub Releases (recommended, 2GB limit, no new account):**
+```bash
+# in Video Viewer folder
+gh release create v1.0 --title "Video v1.0" --notes "300MB video"
+gh release upload v1.0 "C:\path\to\your-video.mp4" --clobber
+# Direct URL becomes:
+# https://github.com/shineministry/drive-video-viewer/releases/download/v1.0/your-video.mp4
+```
+Then set in `js/app.js:6`:
+```js
+window.VIDEO_URL = "https://github.com/shineministry/drive-video-viewer/releases/download/v1.0/your-video.mp4";
+```
+Push → link works instantly. This is best for your 300MB file.
+
+**Option B — Compress to ~60-80MB (keeps on Pages, faster for old phones):**
+Install HandBrake (GUI, easiest) or ffmpeg and run:
+```bash
+ffmpeg -i input.mp4 -vcodec libx264 -crf 28 -preset slow -vf scale=-2:720 -acodec aac -b:a 96k output.mp4
+```
+`crf 28` + 720p shrinks 300MB → ~70MB with almost no visible loss. Then put in `videos/` and allow push: remove `videos/*.mp4` from `.gitignore` or host the compressed file on Releases.
+
+**Option C — Free external host (no compression):**
+Upload to Cloudflare R2 / Backblaze B2 / archive.org / catbox.moe and use `?v=https://.../video.mp4`.
+
+> Tip: Your `Trip to Morocco.mp4` (359MB) → use Option A now, compress later if load is slow for old devices.
+
 ## 📂 Structure
 ```
 index.html      # viewer
 css/style.css   # Drive exact styles + animations
 js/app.js       # logic (query, drive-id conversion, controls)
-videos/         # put .mp4 here (ignored except .gitkeep)
+videos/         # put .mp4 here (ignored except .gitkeep) — use Releases for >100MB
 assets/         # optional thumbs
 ```
 
