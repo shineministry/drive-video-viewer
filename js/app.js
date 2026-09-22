@@ -6,7 +6,7 @@
  */
 
 // === Config: change these ===
-window.VIDEO_URL = "https://github.com/shineministry/drive-video-viewer/releases/download/v1.0/Trip.to.Morocco.mp4";
+window.VIDEO_URL = "trip-to-morocco.mp4";
 window.VIDEO_TITLE = "Trip to Morocco.mp4";
 
 const $ = (s, r=document) => r.querySelector(s);
