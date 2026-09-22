@@ -282,21 +282,21 @@ function doDownload(){
   }
 }
 
-$('#downloadBtn').addEventListener('click', doDownload);
-$('#drawerDownloadBtn').addEventListener('click', doDownload);
-$('#moreBtn').addEventListener('click', (e)=>{
+$('#downloadBtn')?.addEventListener('click', doDownload);
+$('#drawerDownloadBtn')?.addEventListener('click', doDownload);
+$('#moreBtn')?.addEventListener('click', (e)=>{
   const m = $('#moreMenu');
   m.hidden = !m.hidden;
   e.stopPropagation();
 });
-document.addEventListener('click', ()=> $('#moreMenu').hidden = true);
-$('#moreMenu').addEventListener('click', (e)=>{
+document.addEventListener('click', ()=> { const m=$('#moreMenu'); if(m) m.hidden = true; });
+$('#moreMenu')?.addEventListener('click', (e)=>{
   const act = e.target.dataset.action;
   if(act==='download') doDownload();
   if(act==='copy') copyLink();
   if(act==='print') window.print();
   if(act==='report') toast('Thanks for your feedback');
-  $('#moreMenu').hidden = true;
+  const m=$('#moreMenu'); if(m) m.hidden = true;
 });
 
 // Share / copy link
